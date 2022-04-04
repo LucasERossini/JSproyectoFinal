@@ -4,6 +4,8 @@ let suma = 0;
 let listaTotal;
 let prod = parseInt(prompt('Ingrese el número correspondiente al producto que desea comprar: \n\n 1- Producto 1: $10 \n 2- Producto 2: $20 \n 3- Producto 3: $30 \n 4- Producto 4: $40 \n 0- Ninguno (finaliza el programa)'));
 const productos = [];
+let parrafo = document.createElement('p'); // creando nuevo elemento para el HTML
+document.body.append(parrafo); // agregando el elemento al HTML
 
 //! Clase para agrupar características de un prodcto
 class Producto {
@@ -41,7 +43,7 @@ productos.push(new Producto("Producto 4: $40", 40));
 
 //! Condicional de fin de programa
 if (prod == 0) {
-    alert('No eligió ningún producto. Fin del programa.');
+    parrafo.innerText = 'No eligió ningún producto. Fin del programa.'; // contenido agregado a nueva elemento del HTML
 } else {
     //! Ciclo while para agregar productos al carrito
     while ((prod != 0)) {
@@ -61,5 +63,5 @@ if (prod == 0) {
             prod = parseInt(prompt('Ingrese el número correspondiente al producto que desea comprar: \n\n 1- Producto 1: $10 \n 2- Producto 2: $20 \n 3- Producto 3: $30 \n 4- Producto 4: $40 \n 0- Ninguno (finaliza el programa)'));
         };
     };
-    alert('La lista final de productos es:\n' + listaTotal + '\nY el total final es de $' + suma + '\n\nFin del programa.');
+    parrafo.innerText = 'La lista final de productos es:\n' + listaTotal + '\nY el total final es de $' + suma + '.\n\nFin del programa.'; // contenido agregado a nueva elemento del HTML
 };
