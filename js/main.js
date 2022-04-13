@@ -1,67 +1,108 @@
 //! Variables
-let lista = [];
-let suma = 0;
+const acumulador = [[], 0];
 let listaTotal;
-let prod = parseInt(prompt('Ingrese el número correspondiente al producto que desea comprar: \n\n 1- Producto 1: $10 \n 2- Producto 2: $20 \n 3- Producto 3: $30 \n 4- Producto 4: $40 \n 0- Ninguno (finaliza el programa)'));
 const productos = [];
-let parrafo = document.createElement('p'); // creando nuevo elemento para el HTML
-document.body.append(parrafo); // agregando el elemento al HTML
+let elemento = document.getElementById("compra");
+let add1 = document.getElementById('add1');
+let add2 = document.getElementById('add2');
+let add3 = document.getElementById('add3');
+let add4 = document.getElementById('add4');
+let fin = document.getElementById('fin');
+let reset = document.getElementById('reset');
 
 //! Clase para agrupar características de un prodcto
 class Producto {
-    constructor (nombre, precio) {
+    constructor (nombre, precio, cantidad) {
         this.nombre = nombre;
         this.precio = precio;
+        this.cantidad = cantidad;
     };
-};
-
-//! Función para agregar producto a la lista
-function list(prod) {
-    for (let index = 0; index < productos.length; index++) {
-        if (index == prod - 1) {
-            lista.push(productos[index].nombre);
-        };
+    addCantidad (){
+        this.cantidad ++;
     };
-     return lista;
-};
-
-//! Función para sumar precio del producto elegido
-function carrito(prod) {
-    for (let index = 0; index < productos.length; index++) {
-        if (index == prod - 1) {
-            suma = suma + productos[index].precio;
-        };
-    };
-     return suma;
 };
 
 //! Arreglo para agrupar productos
-productos.push(new Producto("Producto 1: $10", 10));
-productos.push(new Producto("Producto 2: $20", 20));
-productos.push(new Producto("Producto 3: $30", 30));
-productos.push(new Producto("Producto 4: $40", 40));
+productos.push(new Producto("Producto 1: $10", 10, 0));
+productos.push(new Producto("Producto 2: $20", 20, 0));
+productos.push(new Producto("Producto 3: $30", 30, 0));
+productos.push(new Producto("Producto 4: $40", 40, 0));
 
-//! Condicional de fin de programa
-if (prod == 0) {
-    parrafo.innerText = 'No eligió ningún producto. Fin del programa.'; // contenido agregado a nueva elemento del HTML
-} else {
-    //! Ciclo while para agregar productos al carrito
-    while ((prod != 0)) {
-        //! Condicional para limitar ingresos a opciones válidas
-        if (prod >=5) {
-            prod = parseInt(prompt('No ingresó una opción válida. Vuelva a ingresar un número'));
-        } else {
-            suma = carrito(prod);
-            lista = list(prod);
-            console.log(lista);
-            listaTotal = "";
-            for (let index = 0; index < lista.length; index++) {
-                listaTotal += lista[index] + "\n";
-            };
-            console.log(listaTotal);
-            alert('Los productos agregados hasta ahora son:\n' + listaTotal + '\nY el total hasta ahora es de $' + suma + '.');
-            prod = parseInt(prompt('Ingrese el número correspondiente al producto que desea comprar: \n\n 1- Producto 1: $10 \n 2- Producto 2: $20 \n 3- Producto 3: $30 \n 4- Producto 4: $40 \n 0- Ninguno (finaliza el programa)'));
-        };
+//! Agregando productos a almacenamiento local
+const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor)};
+guardarLocal('listaProductos', JSON.stringify(productos));
+
+//! Agregar elementos a lista
+function click(add) {
+    switch (add) {
+        case add1:
+            productos[0].addCantidad();
+            sessionStorage.setItem('producto1', productos[0].cantidad);
+            acumulador[0][0] = (`${productos[0].cantidad} ${productos[0].nombre}`);
+            acumulador[1] = acumulador[1] + productos[0].precio;
+            break;
+        case add2:
+            productos[1].addCantidad();
+            sessionStorage.setItem('producto2', productos[1].cantidad);
+            acumulador[0][1] = (`${productos[1].cantidad} ${productos[1].nombre}`);
+            acumulador[1] = acumulador[1] + productos[1].precio;
+            break;
+        case add3:
+            productos[2].addCantidad();
+            sessionStorage.setItem('producto3', productos[2].cantidad);
+            acumulador[0][2] = (`${productos[2].cantidad} ${productos[2].nombre}`);
+            acumulador[1] = acumulador[1] + productos[2].precio;
+            break;
+        case add4:
+            productos[3].addCantidad();
+            sessionStorage.setItem('producto4', productos[3].cantidad);
+            acumulador[0][3] = (`${productos[3].cantidad} ${productos[3].nombre}`);
+            acumulador[1] = acumulador[1] + productos[3].precio;
+            break;
+        default:
+            break;
     };
-    parrafo.innerText = 'La lista final de productos es:\n' + listaTotal + '\nY el total final es de $' + suma + '.\n\nFin del programa.'; // contenido agregado a nueva elemento del HTML
+    console.log(acumulador[0]);
+    console.log(acumulador[1]);
+    listaTotal = "";
+    for (let index = 0; index < acumulador[0].length; index++) {
+        if (acumulador[0][index] == undefined) {
+            continue;
+        } else {
+            listaTotal += acumulador[0][index] + "\n";
+        };        
+    };
+    console.log(listaTotal);
+    elemento.innerText = `Los productos agregados hasta ahora son:
+                          ${listaTotal}
+                          Y el total hasta ahora es de $${acumulador[1]}.`;
+};
+
+add1.onclick = () => {click(add1)};
+add2.onclick = () => {click(add2)};
+add3.onclick = () => {click(add3)};
+add4.onclick = () => {click(add4)};
+
+//! Mostrar y cargar elementos finales agregados
+fin.onclick = () => {
+    if (acumulador[1] == 0) {
+        elemento.innerText = 'No eligió ningún producto.'; // contenido agregado a nueva elemento del HTML
+    } else {
+        compraFinal = JSON.stringify(acumulador)
+        sessionStorage.setItem('compraFinal', compraFinal);
+        elemento.innerText = `La lista final de productos es:
+                              ${listaTotal}
+                              Y el total final es de $${acumulador[1]}.`;
+    };
+};
+
+//! Reiniciar/borrar datos
+reset.onclick = () => {
+    acumulador[0] = [];
+    acumulador[1] = 0;
+    for (let index = 0; index < productos.length; index++) {
+        productos[index].cantidad = 0;        
+    };
+    sessionStorage.clear();
+    elemento.innerText = '';
 };
