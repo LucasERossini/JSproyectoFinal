@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">            
-    <title>Desafio 02</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <!-- CSS de Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">          
+    <title>Desafio 06</title>
 </head>
 <body>
 
@@ -13,7 +15,9 @@
     <div id="botones">
         
         <div>
-            <label for="add1">1- Producto 1: $10</label>
+            <label for="add1">
+                1- Producto 1: $10
+            </label>
             <button id="add1">Añadir Producto 1 al carrito</button>
         </div>
 
@@ -40,18 +44,31 @@
         
     </div>
 
-    <br>
+    <br><br>
 
-    <button id="fin">Finalizar Compra</button>
+    <div id="compra">
+        <table id="tabla">
+            <tr>
+                <td>Producto</td>
+                <td>Cantidad</td>
+                <td>Total</td>
+            </tr>
+        </table>
+        
 
-    <button id="reset">Reiniciar Compra</button>
+    </div>
 
     <br><br>
 
-    <div id="compra"></div>
+    <div id="final">
+        <button id="fin">Finalizar Compra</button>
+        
+        <button id="reset">Reiniciar Compra</button>  
+    </div>  
 
-    <!-- Lamando al archivo JavaScript -->
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/main.js"></script>
-
 </body>
 </html>

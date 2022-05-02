@@ -1,0 +1,26 @@
+[
+    {
+        "nombre": "Producto 1", 
+        "precio": 10, 
+        "cantidad": 0, 
+        "agregado": true
+    },
+    {
+        "nombre": "Producto 2", 
+        "precio": 20, 
+        "cantidad": 0, 
+        "agregado": true
+    },
+    {
+        "nombre": "Producto 3", 
+        "precio": 30, 
+        "cantidad": 0, 
+        "agregado": true
+    },
+    {
+        "nombre": "Producto 4", 
+        "precio": 40, 
+        "cantidad": 0, 
+        "agregado": true
+    }
+]
