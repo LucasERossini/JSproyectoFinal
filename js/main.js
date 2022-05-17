@@ -36,7 +36,7 @@ function agregar(i, [a, b, c]) {
     return acumulador = [a, b, c];
 };
 
-//! Agregar un elemento al HTML (muestra en el HTML cada elemento agregado)
+//! Agregar un elemento al HTML (muestra en el HTML cada elemento agregado) 
 function click(agregando) {
     for (let index = 0; index < add.length; index++) {
         switch (agregando) {
